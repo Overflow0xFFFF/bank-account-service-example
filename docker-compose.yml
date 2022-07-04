@@ -1,0 +1,37 @@
+# References:
+# * https://testdriven.io/blog/dockerizing-flask-with-postgres-gunicorn-and-nginx/
+#
+---
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://bankservice:encryptmeplease@db:5432/bankservice
+  manage:
+    build: .
+    volumes:
+      - ./migrations:/app/migrations
+    entrypoint: /venv/bin/pdm run flask
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://bankservice:encryptmeplease@db:5432/bankservice
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=bankservice
+      - POSTGRES_PASSWORD=encryptmeplease
+      - POSTGRES_DB=bankservice
+
+volumes:
+  postgres_data:

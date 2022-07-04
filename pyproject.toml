@@ -1,0 +1,23 @@
+[project]
+name = "Bank Service"
+version = "0.1.0"
+description = "Example REST API for a banking service"
+authors = [
+    {name = "Joshua Ford", email = "joshua.ford@protonmail.com"},
+]
+dependencies = [
+    "flask>=2.1.2",
+    "flask-sqlalchemy>=2.5.1",
+    "flask-migrate>=3.1.0",
+    "sqlalchemy>=1.4.39",
+    "environs>=9.5.0",
+    "psycopg2>=2.9.3",
+]
+requires-python = ">=3.8"
+license = {text = "BSD 3-Clause"}
+
+[tool.pdm]
+
+[build-system]
+requires = ["pdm-pep517>=0.12.0"]
+build-backend = "pdm.pep517.api"
